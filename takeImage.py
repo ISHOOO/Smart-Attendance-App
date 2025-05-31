@@ -6,10 +6,10 @@ import pandas as pd
 import datetime
 import time
 
-
+base_dir = os.path.dirname(os.path.abspath(__file__))
 
 # take Image of user
-def TakeImage(l1, l2, l3, l4, l5, l6, l8, haarcasecade_path, trainimage_path, message, err_screen, text_to_speech):
+def TakeImage(l1, l2, l3, l4, l5, l6, l8, haarcascade_path, trainimage_path, message, err_screen, text_to_speech):
     if (l1 == "") and (l2=="") and (l3=="") and (l4=="") and (l5=="") and (l6=="") and (l8==""):
         t='Please Enter your full information.'
         text_to_speech(t)
@@ -25,7 +25,7 @@ def TakeImage(l1, l2, l3, l4, l5, l6, l8, haarcasecade_path, trainimage_path, me
     else:
         try:
             cam = cv2.VideoCapture(0)
-            detector = cv2.CascadeClassifier(haarcasecade_path)
+            detector = cv2.CascadeClassifier(haarcascade_path)
             Enrollment = l1
             Name = l2
             Class = l3
@@ -65,15 +65,11 @@ def TakeImage(l1, l2, l3, l4, l5, l6, l8, haarcasecade_path, trainimage_path, me
             row = [Enrollment, Name]
             row2 = [Enrollment, Name, Class,Dob,Fn,cor,ph]
         
-            with open(
-                "C:/Users/dell/OneDrive/Desktop/MPR-main/StudentDetails/studentdetails.csv",
-                "a+",
-            ) as csvFile:
+            with open(os.path.join(base_dir, 'StudentDetails', 'studentdetails.csv'), 'a+', newline='') as csvFile:
                 writer = csv.writer(csvFile, delimiter=",")
                 writer.writerow(row)
                 csvFile.close()
-            with open(
-                f"C:/Users/dell/OneDrive/Desktop/MPR-mainAttendance/{Class}/studentdetails.csv","a+",) as csvFile:
+            with open(os.path.join(base_dir, 'Attendance', Class, 'studentdetails.csv'), 'a+', newline='') as csvFile:
                 writer = csv.writer(csvFile, delimiter=",")
                 writer.writerow(row2)
                 csvFile.close()

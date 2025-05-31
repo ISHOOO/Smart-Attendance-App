@@ -13,11 +13,13 @@ from customtkinter import *
 import tkinter.ttk as tkk
 import tkinter.font as font
 
-haarcasecade_path = "haarcascade_frontalface_default.xml"
-trainimagelabel_path = "TrainingImageLabel\Trainner.yml"
-trainimage_path = "TrainingImage"
-studentdetail_path = "StudentDetails\studentdetails.csv"
-attendance_path = "Attendance"
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+haarcascade_path = os.path.join(base_dir, 'haarcascade_frontalface_default.xml')
+trainimagelabel_path = os.path.join(base_dir, 'TrainingImageLabel', 'Trainner.yml')
+trainimage_path = os.path.join(base_dir, 'TrainingImagee')
+studentdetail_path = os.path.join(base_dir, 'StudentDetails', 'studentdetails.csv')
+attendance_path = os.path.join(base_dir, 'Attendance')
 # for choose subject and fill attendance
 def subjectChoose(text_to_speech):
     def FillAttendance():
@@ -45,7 +47,7 @@ def subjectChoose(text_to_speech):
                     )
                     Notifica.place(x=20, y=250)
                     text_to_speech(e)
-                facecasCade = cv2.CascadeClassifier(haarcasecade_path)
+                facecasCade = cv2.CascadeClassifier(haarcascade_path)
                 df = pd.read_csv(studentdetail_path)
                 cam = cv2.VideoCapture(0)
                 font = cv2.FONT_HERSHEY_SIMPLEX

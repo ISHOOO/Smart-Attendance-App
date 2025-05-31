@@ -10,7 +10,9 @@ import datetime
 import time
 import tkinter.ttk as tkk
 import tkinter.font as font
+from subprocess import Popen
 
+base_dir = os.path.dirname(os.path.abspath(__file__))
 ts = time.time()
 Date = datetime.datetime.fromtimestamp(ts).strftime("%Y_%m_%d")
 timeStamp = datetime.datetime.fromtimestamp(ts).strftime("%H:%M:%S")
@@ -181,19 +183,7 @@ def manually_fill():
 
             def create_csv():
                 df = pd.DataFrame(d)
-                csv_name = (
-                    "C:\\Users\\dell\\OneDrive\\Desktop\\MPR-main\\Attendance(Manually)\\"
-                    + subb
-                    + "_"
-                    + Date
-                    + "_"
-                    + Hour
-                    + "-"
-                    + Minute
-                    + "-"
-                    + Second
-                    + ".csv"
-                )
+                csv_name = os.path.join(os.path.join(base_dir, 'Attendance(Manually)'),f"{subb}_{Date}_{Hour}-{Minute}-{Second}.csv")
                 df.to_csv(csv_name)
                 O = "CSV created Successfully"
                 Notifi.configure(
@@ -268,11 +258,7 @@ def manually_fill():
             MAKE_CSV.place(x=570, y=300)
             # TODO remove check sheet
             def attf():
-                import subprocess
-
-                subprocess.Popen(
-                    r'explorer /select,"C:/Users/dell/OneDrive/Desktop/MPR-main/Attendance(Manually)"'
-                )
+                Popen(rf'explorer /select,"{os.path.join(base_dir, 'Attendance(Manually)')}"')
 
             attf = tk.Button(
                 MFW,

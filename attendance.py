@@ -42,11 +42,14 @@ def text_to_speech(user_text):
     engine.runAndWait()
 
 
-haarcascade_path = "C:\\Users\\dell\\OneDrive\\Desktop\\MPR-main\\haarcascade_frontalface_default.xml"
-trainimagelabel_path = "C:\\Users\\dell\\OneDrive\\Desktop\\MPR-main\\TrainingImageLabel\\Trainner.yml"
-trainimage_path = "C:\\Users\\dell\\OneDrive\\Desktop\\MPR-main\\TrainingImagee"
-studentdetail_path ="C:\\Users\\dell\\OneDrive\\Desktop\\MPR-main\\StudentDetails\\studentdetails.csv"
-attendance_path = "C:\\Users\\dell\\OneDrive\\Desktop\\MPR-main\\Attendance"
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+haarcascade_path = os.path.join(base_dir, 'haarcascade_frontalface_default.xml')
+trainimagelabel_path = os.path.join(base_dir, 'TrainingImageLabel', 'Trainner.yml')
+trainimage_path = os.path.join(base_dir, 'TrainingImagee')
+studentdetail_path = os.path.join(base_dir, 'StudentDetails', 'studentdetails.csv')
+attendance_path = os.path.join(base_dir, 'Attendance')
+
 
 app = CTk()
 app.title("Attendence Management Systsem through Face Recognition")
@@ -66,7 +69,7 @@ class AttendanceGridCanvas:
         self.year = year
         self.subject = subject
         self.num_days = get_num_days(month, year)
-        self.students = self.load_students(f"C:\\Users\\dell\\OneDrive\\Desktop\\MPR-main\\Attendance\\{self.subject}\\studentdetails.csv")
+        self.students = self.load_students(f"{os.path.join(base_dir, 'Attendance', self.subject, 'studentdetails.csv')}")
         self.attendance_data = self.load_attendance()
         self.create_grid()
  
@@ -81,7 +84,7 @@ class AttendanceGridCanvas:
 
     def load_attendance(self):
         cwd = os.getcwd()
-        files = glob.glob(os.path.join(cwd, f"C:\\Users\\dell\\OneDrive\\Desktop\\MPR-main\\Attendance\\{self.subject}\\*.csv"))
+        files = glob.glob(os.path.join(os.path.join(base_dir, 'Attendance', self.subject), '*.csv'))
         attendance_data = defaultdict(dict)
 
         for file_path in files:
