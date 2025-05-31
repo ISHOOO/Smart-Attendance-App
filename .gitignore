@@ -1,2 +1,4 @@
 TrainingImage/
 TrainingImageLabel/
+projectenv/
+__pycache__/
